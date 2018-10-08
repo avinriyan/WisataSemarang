@@ -1,6 +1,10 @@
 package com.larapin.wisatasemarang;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull WisataAdapter holder, int position, @NonNull final WisataModel model) {
                 final DatabaseReference wisRef = getRef(position);
                 final String wisKey = wisRef.getKey();
-                holder.bindTo(model, new View.OnClickListener() {
+
+                LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+
+                holder.bindTo(model,longitude,latitude, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);

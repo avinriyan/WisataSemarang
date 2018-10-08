@@ -9,4 +9,7 @@ public class WisataModel {
     public String strAlamat;
     public String strTelepon;
     public String strTiket;
+    public String gambarWisata;
+    public float dblLat;
+    public float dblLng;
 }
